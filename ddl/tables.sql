@@ -13,6 +13,17 @@ ALTER TABLE book_kinds
     ADD CONSTRAINT un_book_kinds_kind
         UNIQUE (kind);
 
+CREATE TABLE book_genres
+(
+    id    INT AUTO_INCREMENT,
+    genre VARCHAR(30) NOT NULL,
+    CONSTRAINT pk_book_genre PRIMARY KEY (id)
+);
+
+ALTER TABLE book_genres
+    ADD CONSTRAINT un_book_genres_genre
+        UNIQUE (genre);
+
 CREATE TABLE books
 (
     id           INT AUTO_INCREMENT,
