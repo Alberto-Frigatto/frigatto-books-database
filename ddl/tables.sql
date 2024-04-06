@@ -32,6 +32,7 @@ CREATE TABLE books
     author       VARCHAR(40)   NOT NULL,
     release_year YEAR          NOT NULL,
     id_kind      INT           NOT NULL,
+    id_genre INT NOT NULL,
     CONSTRAINT pk_book PRIMARY KEY (id)
 );
 
@@ -62,6 +63,11 @@ ALTER TABLE book_imgs
 ALTER TABLE books
     ADD CONSTRAINT fk_book_kinds_books
         FOREIGN KEY (id_kind) REFERENCES book_kinds (id)
+            ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE books
+    ADD CONSTRAINT fk_book_genres_books
+        FOREIGN KEY (id_genre) REFERENCES book_genres (id)
             ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE book_keywords
