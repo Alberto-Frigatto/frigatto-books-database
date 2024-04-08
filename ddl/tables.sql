@@ -32,7 +32,7 @@ CREATE TABLE books
     author       VARCHAR(40)   NOT NULL,
     release_year YEAR          NOT NULL,
     id_kind      INT           NOT NULL,
-    id_genre INT NOT NULL,
+    id_genre     INT           NOT NULL,
     CONSTRAINT pk_book PRIMARY KEY (id)
 );
 
@@ -60,6 +60,26 @@ ALTER TABLE book_imgs
     ADD CONSTRAINT un_book_img_path
         UNIQUE (path);
 
+CREATE TABLE users
+(
+    id       INT AUTO_INCREMENT,
+    username VARCHAR(50)  NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    CONSTRAINT pk_user PRIMARY KEY (id)
+);
+
+ALTER TABLE users
+    ADD CONSTRAINT un_user_username
+        UNIQUE (username);
+
+CREATE TABLE saved_books
+(
+    id      INT AUTO_INCREMENT,
+    id_user INT NOT NULL,
+    id_book INT NOT NULL,
+    CONSTRAINT pk_saved_book PRIMARY KEY (id)
+);
+
 ALTER TABLE books
     ADD CONSTRAINT fk_book_kinds_books
         FOREIGN KEY (id_kind) REFERENCES book_kinds (id)
@@ -78,6 +98,16 @@ ALTER TABLE book_keywords
 ALTER TABLE book_imgs
     ADD CONSTRAINT fk_books_book_imgs
         FOREIGN KEY (id_book) REFERENCES books (id)
+            ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE saved_books
+    ADD CONSTRAINT fk_books_saved_books
+        FOREIGN KEY (id_book) REFERENCES books (id)
+            ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE saved_books
+    ADD CONSTRAINT fk_users_saved_books
+        FOREIGN KEY (id_user) REFERENCES users (id)
             ON DELETE CASCADE ON UPDATE RESTRICT;
 
 COMMIT;
