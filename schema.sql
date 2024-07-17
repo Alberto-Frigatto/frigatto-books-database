@@ -1,3 +1,5 @@
+CREATE DATABASE frigatto_books;
+
 USE frigatto_books;
 
 SET autocommit = 0;
@@ -51,26 +53,31 @@ CREATE TABLE book_keywords
 CREATE TABLE book_imgs
 (
     id      INT AUTO_INCREMENT,
-    path    VARCHAR(255) NOT NULL,
+    img_url VARCHAR(255) NOT NULL,
     id_book INT          NOT NULL,
     CONSTRAINT pk_book_img PRIMARY KEY (id)
 );
 
 ALTER TABLE book_imgs
     ADD CONSTRAINT un_book_img_path
-        UNIQUE (path);
+        UNIQUE (img_url);
 
 CREATE TABLE users
 (
     id       INT AUTO_INCREMENT,
     username VARCHAR(50)  NOT NULL,
-    password VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    img_url  VARCHAR(255) NOT NULL,
     CONSTRAINT pk_user PRIMARY KEY (id)
 );
 
 ALTER TABLE users
     ADD CONSTRAINT un_user_username
         UNIQUE (username);
+
+ALTER TABLE users
+    ADD CONSTRAINT un_user_img_url
+        UNIQUE (img_url);
 
 CREATE TABLE saved_books
 (
