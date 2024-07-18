@@ -58,6 +58,7 @@ At last, create a container providing the following stuffs:
 docker run -d --name frigatto_books_database_container \
 -e MYSQL_ROOT_PASSWORD=root_password \
 -v mysql-data:/var/lib/mysql \
+-p 3306:3306
 frigatto_books_database
 ```
 
